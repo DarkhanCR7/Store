@@ -1,0 +1,16 @@
+{% extends 'products/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<a class="back" href="/storeProducts/">← Назад в каталог</a>
+<div class="detail">
+  <div class="detail-image" style="background-image: url('{{ product.image_url|default:'https://via.placeholder.com/600' }}')"></div>
+  <div class="detail-info">
+    <h1>{{ product.name }}</h1>
+    <p class="price">{{ product.price }} ₸</p>
+    <p>{{ product.description }}</p>
+    <button class="buy">Добавить в корзину</button>
+  </div>
+</div>
+{% endblock %}

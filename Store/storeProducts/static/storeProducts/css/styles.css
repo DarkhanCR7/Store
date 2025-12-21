@@ -1,0 +1,17 @@
+*{box-sizing:border-box;font-family:Segoe UI, Roboto, Arial, sans-serif}
+body{background:#f5f7fb;color:#222;margin:0;padding:20px}
+.container{max-width:1000px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.08);text-decoration:none}
+.card a{color:inherit;text-decoration:none;display:block}
+.card-image{height:160px;background-size:cover;background-position:center}
+.card-body{padding:12px}
+.card-body h3{margin:0 0 8px;font-size:1.05rem}
+.price{color:#1b8840;font-weight:600}
+.desc{color:#555;font-size:0.9rem}
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px}
+.detail-image{height:360px;background-size:cover;background-position:center;border-radius:8px}
+.detail-info h1{margin-top:0}
+.buy{background:#1b8840;color:white;padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+.back{display:inline-block;margin-bottom:10px;color:#333;text-decoration:none}
+@media(max-width:700px){.detail{grid-template-columns:1fr}.card-image{height:200px}}

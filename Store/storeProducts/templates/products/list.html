@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Каталог товаров{% endblock %}
+
+{% block content %}
+<h1>Каталог товаров</h1>
+<div class="grid">
+  {% for product in products %}
+  <div class="card">
+    <a href="{{ product.pk }}/">
+      <div class="card-image" style="background-image: url('{{ product.image_url|default:'https://via.placeholder.com/300' }}')"></div>
+      <div class="card-body">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ product.price }} ₸</p>
+        <p class="desc">{{ product.description|truncatechars:100 }}</p>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <p>Товаров пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}
