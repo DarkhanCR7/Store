@@ -1,0 +1,29 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-shopping-cart"></i> Ваша корзина</h1>
+{% if items %}
+  <ul class="cart-list">
+    {% for it in items %}
+      <li>
+        <div class="cart-item-info">
+          <a href="{% url 'storeProducts:product_detail' it.product.pk %}">{{ it.product.name }}</a>
+          <span class="item-amount">{{ it.qty }} × {{ it.product.price }} ₸ = <strong>{{ it.subtotal }} ₸</strong></span>
+        </div>
+        <a href="{% url 'storeProducts:remove_from_cart' it.product.pk %}" class="remove-btn"><i class="fas fa-trash"></i> Удалить</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="cart-total">
+    <p><strong>Итого:</strong> <span class="total-price">{{ total }} ₸</span></p>
+    <button class="checkout-btn"><i class="fas fa-credit-card"></i> Оформить покупку</button>
+  </div>
+{% else %}
+  <div class="empty-cart">
+    <p><i class="fas fa-inbox"></i> Корзина пуста.</p>
+    <a href="{% url 'storeProducts:product_list' %}" class="back-to-shop"><i class="fas fa-arrow-left"></i> Вернуться в магазин</a>
+  </div>
+{% endif %}
+{% endblock %}

@@ -3,14 +3,19 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<a class="back" href="/storeProducts/">← Назад в каталог</a>
+<a class="back" href="{% url 'storeProducts:product_list' %}"><i class="fas fa-arrow-left"></i> Назад в каталог</a>
 <div class="detail">
   <div class="detail-image" style="background-image: url('{{ product.image_url|default:'https://via.placeholder.com/600' }}')"></div>
   <div class="detail-info">
-    <h1>{{ product.name }}</h1>
-    <p class="price">{{ product.price }} ₸</p>
-    <p>{{ product.description }}</p>
-    <button class="buy">Добавить в корзину</button>
+    <div>
+      <h1>{{ product.name }}</h1>
+      <p class="price"><i class="fas fa-tag"></i> {{ product.price }} ₸</p>
+      <p>{{ product.description }}</p>
+    </div>
+    <form method="post" action="{% url 'storeProducts:add_to_cart' product.pk %}">
+      {% csrf_token %}
+      <button class="buy" type="submit"><i class="fas fa-shopping-cart"></i> Добавить в корзину</button>
+    </form>
   </div>
 </div>
 {% endblock %}

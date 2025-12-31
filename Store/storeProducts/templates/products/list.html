@@ -3,7 +3,7 @@
 {% block title %}Каталог товаров{% endblock %}
 
 {% block content %}
-<h1>Каталог товаров</h1>
+<h1><i class="fas fa-th"></i> Каталог товаров</h1>
 <div class="grid">
   {% for product in products %}
   <div class="card">
@@ -11,10 +11,14 @@
       <div class="card-image" style="background-image: url('{{ product.image_url|default:'https://via.placeholder.com/300' }}')"></div>
       <div class="card-body">
         <h3>{{ product.name }}</h3>
-        <p class="price">{{ product.price }} ₸</p>
+        <p class="price"><i class="fas fa-tag"></i> {{ product.price }} ₸</p>
         <p class="desc">{{ product.description|truncatechars:100 }}</p>
       </div>
     </a>
+    <form method="post" action="{% url 'storeProducts:add_to_cart' product.pk %}">
+      {% csrf_token %}
+      <button type="submit" style="margin-bottom: 10px; margin-left: 10px; padding: 10px 20px; background-color: rgb(0, 0, 55); border-radius: 20px; border-style: none; color: white;"><i class="fas fa-cart-plus"></i> Добавить в корзину</button>
+    </form>
   </div>
   {% empty %}
   <p>Товаров пока нет.</p>

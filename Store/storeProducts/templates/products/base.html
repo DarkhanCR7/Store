@@ -4,10 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Mini Store{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/static/storeProducts/css/styles.css">
 </head>
-<body>
+<body style="display: flex;flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; margin: 0; padding: 0;">
   <div class="container">
+    <header>
+      <nav class="nav" style="display: flex; justify-content: space-between; align-items: center; gap:50px; margin-bottom: 40px; width: 100%;">
+        <a class="logo" href="{% url 'storeProducts:home' %}" style=" text-decoration: none; color: white; padding: 20px ;display:flex;justify-content: center;align-items: center; background-color: rgb(0, 0, 55); border-radius: 20px;"><i class="fas fa-store"></i> Магазин</a>
+        <form class="search" action="{% url 'storeProducts:product_list' %}" method="get" style="display: flex; gap: 10px; align-items: center;">
+          <input type="text" name="q" placeholder="🔍 Поиск товаров" value="{{ q|default:'' }}" style="width: 200px;padding-block: 20px; border-color: rgb(0, 0, 55); border-radius: 20px;background-color: rgb(182, 182, 232); color:white; padding-inline-start: 10px;">
+          <select name="sort" style="width: 120px;padding-block: 20px; border-style: none; border-radius: 20px;background-color: rgb(0, 0, 53); color:white; padding-inline: 10px;">
+            <option value="">Сортировать</option>
+            <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>💰 Цена ↑</option>
+            <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>💰 Цена ↓</option>
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>📝 Название</option>
+          </select>
+          <button type="submit" style="width: 100px;padding-block: 20px; border-style: none; border-radius: 20px;background-color: rgb(0, 0, 54); color:white; padding-inline: 10px;"><i class="fas fa-search"></i> OK</button>
+        </form>
+        <div class="nav-right" style="display: flex; gap: 20px; align-items: center; justify-content: center; align-items: center;">
+          <a href="{% url 'storeProducts:view_cart' %}" class="cart-link" style="width: 100px;padding-block: 20px; border-style: none; border-radius: 20px;background-color: rgb(182, 182, 232); color:white; padding-inline-start: 10px;"><i class="fas fa-shopping-cart"></i> Корзина</a>
+          {% if user.is_authenticated %}
+          
+            <form method="post" action="{% url 'logout' %}" style="margin: 0; display: inline;">
+              {% csrf_token %}
+              <button type="submit" style="width: 95px;padding-block: 20px;border-style: solid; border-color: rgb(241, 1, 1); border-radius: 20px;background-color: rgba(255, 0, 0, 0.188); color:white; padding-inline: 10px; cursor: pointer;"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" style="width: 90px;padding-block: 20px;border-style: none; border-radius: 20px;background-color: rgb(0, 0, 54); color:white; padding-inline: 10px;"><i class="fas fa-sign-in-alt"></i> Войти</a>
+            <a href="{% url 'storeProducts:register' %}"  style="width: 140px;padding-block: 20px;border: solid 2px rgb(0, 0, 53); border-radius: 20px; color:rgb(0, 0, 55); padding-inline: 10px;"><i class="fas fa-user-plus"></i> Регистрация</a>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
     {% block content %}{% endblock %}
   </div>
 </body>
