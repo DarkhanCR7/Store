@@ -102,8 +102,7 @@ def product_list(request):
     elif sort == 'name':
         products = products.order_by('name')
     
-    # Пагинация: 12 товаров на странице
-    paginator = Paginator(products, 12)
+    paginator = Paginator(products, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -132,8 +131,7 @@ def product_list_second(request):
     elif sort == 'name':
         products = products.order_by('name')
     
-    # Пагинация: 9 товаров на странице
-    paginator = Paginator(products, 9)
+    paginator = Paginator(products, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -159,7 +157,7 @@ def register(request):
             login(request, user)
             return redirect(reverse('storeProducts:product_list'))
         else:
-            # Форма остаётся на странице с ошибками
+        
             return render(request, 'products/register.html', {'form': form})
     else:
         form = CustomUserCreationForm()
