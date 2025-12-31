@@ -22,31 +22,6 @@ cd Store
 python manage.py migrate
 python manage.py runserver
 ```
-```bash
-cd Store
-```
-
-### 5. Примените миграции
-```bash
-python manage.py migrate
-```
-
-### 6. Создайте суперпользователя (администратор)
-```bash
-python manage.py createsuperuser
-```
-
-### 7. Добавьте товары в базу
-```bash
-python manage.py seed_products
-```
-
-### 8. Запустите сервер
-```bash
-python manage.py runserver
-```
-
-Откройте браузер и перейдите на `http://localhost:8000`
 
 ## 📂 Структура проекта
 
@@ -178,3 +153,6 @@ python manage.py migrate
 ---
 
 **Happy coding! 🚀**
+=======
+
+>>>>>>> ce7d4cbf497c9ad69db0417579501acaa9ea0a1d
