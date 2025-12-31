@@ -1,0 +1,91 @@
+{% extends "products/base.html" %}
+
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mb-4">Мой профиль</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    {% if profile.avatar %}
+                        <div class="text-center mb-4">
+                            <img src="{{ profile.avatar.url }}" alt="Аватар" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
+                        </div>
+                    {% else %}
+                        <div class="text-center mb-4">
+                            <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                <span class="text-white" style="font-size: 60px;">👤</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group mb-3">
+                            <label for="id_first_name">Имя:</label>
+                            {{ form.first_name }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="id_last_name">Фамилия:</label>
+                            {{ form.last_name }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="id_email">Email:</label>
+                            {{ form.email }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="id_avatar">Аватар:</label>
+                            {{ form.avatar }}
+                            <small class="form-text text-muted">Максимальный размер: 5MB</small>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="id_bio">Биография:</label>
+                            {{ form.bio }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                        <a href="{% url 'storeProducts:product_list' %}" class="btn btn-secondary">Отменить</a>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>Информация аккаунта</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+                    <p><strong>Последний вход:</strong> {{ user.last_login|date:"d.m.Y H:i" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+    
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+</style>
+{% endblock %}

@@ -24,4 +24,56 @@
   <p>Товаров пока нет.</p>
   {% endfor %}
 </div>
+
+<!-- Пагинация снизу с квадратиками -->
+<div class="pagination-bottom" style="margin: 50px 0 30px 0; text-align: center; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+  {% if page_obj.has_previous %}
+    <a href="?page=1&q={{ q }}&sort={{ sort }}" class="page-btn" title="Первая">«</a>
+    <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&sort={{ sort }}" class="page-btn" title="Предыдущая">‹</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <span class="page-btn active" style="background-color: rgb(0, 0, 55); color: white; cursor: default;">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}&q={{ q }}&sort={{ sort }}" class="page-btn">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&sort={{ sort }}" class="page-btn" title="Следующая">›</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}&q={{ q }}&sort={{ sort }}" class="page-btn" title="Последняя">»</a>
+  {% endif %}
+</div>
+
+<style>
+  .page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: white;
+    border: 2px solid rgb(0, 0, 55);
+    color: rgb(0, 0, 55);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .page-btn:hover {
+    background-color: rgb(100, 100, 180);
+    color: white;
+    border-color: rgb(100, 100, 180);
+  }
+
+  .page-btn.active {
+    background-color: rgb(0, 0, 55);
+    color: white;
+    border-color: rgb(0, 0, 55);
+  }
+</style>
 {% endblock %}
